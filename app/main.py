@@ -6,9 +6,6 @@ from app.core.config import settings
 from app.db.base import Base
 from app.db.session import engine
 
-
-Base.metadata.create_all(bind=engine)
-
 app = FastAPI(
     title="API RESTful de Gestion des Approvisionnements",
     description="FastAPI, PostgreSQL, Cloudinary et JWT.",
@@ -27,6 +24,11 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix="/api")
+
+
+@app.on_event("startup")
+def create_tables() -> None:
+    Base.metadata.create_all(bind=engine)
 
 
 @app.get("/", tags=["Health"])

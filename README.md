@@ -23,6 +23,13 @@ Configurer les variables dans `.env`, puis lancer :
 uvicorn app.main:app --reload
 ```
 
+Les tables sont créées automatiquement au démarrage. Si vous préférez Alembic :
+
+```bash
+alembic revision --autogenerate -m "initial"
+alembic upgrade head
+```
+
 Documentation Swagger :
 
 - `http://127.0.0.1:8000/api-docs`
